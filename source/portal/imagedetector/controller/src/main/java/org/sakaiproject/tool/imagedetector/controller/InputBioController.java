@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,14 +50,13 @@ public class InputBioController extends BaseController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/save-bio", method=RequestMethod.POST)
+	@PostMapping(value = "/save-bio")
 	@ResponseBody
 	public ResponseEntity<String> saveBio(@RequestParam("name") String name,
 			@RequestParam("email") String email,
             @RequestParam("department") String department,
             @RequestParam("image") MultipartFile image) {
 				return new ResponseEntity(name + " " + email + " " + department, HttpStatus.OK) ;
-		
 	}
 	
 //	@RequestMapping(value = "/save-bio", method=RequestMethod.POST)

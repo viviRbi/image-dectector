@@ -1,14 +1,9 @@
 $(function () {
     $('#submitBio').click(function (e) {
- 
         //Prevent default submission of form
         e.preventDefault();
- 
-        //Clean input
-        $('input').remove();
- 
         $.post({
-            url: '/save-bio',
+            url: _ctx + 'save-bio',
             data: $('#bioForm').serialize(),
             success: function (res) {
                 if (res.validated) {
@@ -22,5 +17,4 @@ $(function () {
             }
         })
     });
- 
 });
