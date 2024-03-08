@@ -22,21 +22,25 @@ package org.sakaiproject.tool.imagedetector.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.sakaiproject.tool.imagedetector.controller.model.EmployeeBio;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
+@Slf4j
 public class InputBioController extends BaseController {
  
 	/**
@@ -49,24 +53,15 @@ public class InputBioController extends BaseController {
 
 		return mav;
 	}
-	
+
 	@PostMapping(value = "/save-bio")
 	@ResponseBody
-	public ResponseEntity<String> saveBio(@RequestParam("name") String name,
-			@RequestParam("email") String email,
-            @RequestParam("department") String department,
-            @RequestParam("image") MultipartFile image) {
-				return new ResponseEntity(name + " " + email + " " + department, HttpStatus.OK) ;
+	public ResponseEntity<String> saveBio(@ModelAttribute("model") EmployeeBio model, BindingResult bindingResult) {
+		// Check Binding data
+		log.debug("bindingResult.getErrorCount()=" + bindingResult.getErrorCount());
+
+		return new ResponseEntity("Success", HttpStatus.OK) ;
 	}
 	
-//	@RequestMapping(value = "/save-bio", method=RequestMethod.POST)
-//	@ResponseBody
-//	public String saveBio(@RequestParam("name") String name,
-//			@RequestParam("email") String email,
-//            @RequestParam("department") String department,
-//            @RequestParam("image") MultipartFile image) {
-//				return name + " " + email + " " + department ;
-//		
-//	}
 }
 
